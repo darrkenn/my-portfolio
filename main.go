@@ -1,11 +1,27 @@
 package main
 
 import (
-	//"net/http"
-	//"github.com/gin-gonic/gin"
 	"fmt"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	fmt.Print("Hello.")
+	router := gin.Default()
+	router.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
+	router.GET("/api/:name", func(c *gin.Context) {
+		name := c.Param("name")
+		c.String(http.StatusOK, "Hello %", name)
+		processName(name)
+	})
+	router.Run()
+}
+
+func processName(name string) {
+	fmt.Print(name)
 }
