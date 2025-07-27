@@ -1,21 +1,33 @@
 package main
 
 import (
-	"database/sql"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 	"log"
 	_ "modernc.org/sqlite"
+	"my-portfolio/controllers"
 	"net/http"
+	"os"
 )
 
 func main() {
 	//Setup
 	r := gin.Default()
-	db, dbErr := sql.Open("sqlite", "db/portfolio.db")
+	envErr := godotenv.Load()
+	if envErr != nil {
+		log.Fatal("Cant open env: ", envErr)
+	}
+
+	dbLocation := os.Getenv("DATABASE_LOCATION")
+
+	db, dbErr := gorm.Open(sqlite.Open(dbLocation), &gorm.Config{})
 	if dbErr != nil {
 		log.Fatal("Cant open database: ", dbErr)
 	}
-	defer db.Close()
+	fmt.Println("This is the db", db)
 
 	//No route page
 	r.NoRoute(func(c *gin.Context) {
@@ -30,20 +42,35 @@ func main() {
 
 	// Html page routes
 	r.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "homepage.html", gin.H{})
+		c.HTML(http.StatusOK, "homepage.html", nil)
 	})
 	r.GET("/projects", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "projects.html", gin.H{})
+		c.HTML(http.StatusOK, "projects.html", nil)
 	})
-	r.GET("/blog", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "blog.html", gin.H{})
+	r.GET("/blogs", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "blogs.html", nil)
+	})
+	r.GET("/blogs/:blogId", func(c *gin.Context) {
+		blogId := c.Param("blogId")
+
+		c.HTML(http.StatusOK, "blog.html", gin.H{
+			"ID": blogId,
+		})
+	})
+	r.GET("/contact", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "contact.html", nil)
 	})
 
+	//Reusable HTML
+	r.GET("/api/navbar", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "navbar.html", nil)
+	})
 	//Database routes
 	r.GET("/api/getProjects", func(c *gin.Context) {
+		controllers.GetProjects(c, db)
 	})
 	r.GET("/api/getBlogs", func(c *gin.Context) {
-
+		controllers.GetBlogs(c, db)
 	})
 
 	runErr := r.Run(":1375")

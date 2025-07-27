@@ -42,11 +42,13 @@ while :; do
   read -r projectGitLink
   if [ -n "${projectGitLink}" ]; then
     if [[ "${projectGitLink}" =~ ${urlRegex} ]]; then
+      projectGitLink="\"${projectGitLink}\""
       break
     else
       echo "Url must match the regex https?://.+"
     fi
   else
+    projectGitLink=null
     break
   fi
 done
@@ -56,11 +58,13 @@ while :; do
   read -r projectWebLink
   if [ -n "${projectWebLink}" ]; then
     if [[ "${projectWebLink}" =~ ${urlRegex} ]]; then
+      projectWebLink="\"${projectWebLink}\""
       break
     else
       echo "Url must match the regex https?://.+"
     fi
   else
+    projectWebLink=null
     break
   fi
 done
@@ -98,8 +102,8 @@ echo "{
   \"title\":\"${projectTitle}\",
   \"desc\":\"${projectDescription}\",
   \"tech\":\"${projectTechnologies}\",
-  \"git_link\":\"${projectGitLink}\",
-  \"web_link\":\"${projectWebLink}\",
+  \"git_link\":${projectGitLink},
+  \"web_link\":${projectWebLink},
   \"blog_id\":${projectBlogId}
 }" >newProjectReq.json
 

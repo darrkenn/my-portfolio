@@ -29,9 +29,9 @@ try:
         Project_id INTEGER PRIMARY KEY AUTOINCREMENT,
         Title TEXT UNIQUE NOT NULL,
         Desc TEXT UNIQUE NOT NULL,
-        Tech TEXT UNIQUE NOT NULL,
-        GitLink TEXT UNIQUE DEFAULT NULL,
-        WebLink TEXT UNIQUE DEFAULT NULL,
+        Tech TEXT NOT NULL,
+        GitLink TEXT DEFAULT NULL,
+        WebLink TEXT DEFAULT NULL,
         Blog_id INTEGER DEFAULT NULL,
         FOREIGN KEY (Blog_id) references Blogs (Blog_id)
     )
