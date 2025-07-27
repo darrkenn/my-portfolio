@@ -1,19 +1,26 @@
 package main
 
 import (
-	"github.com/gin-contrib/cors"
-	"net/http"
-
+	"database/sql"
 	"github.com/gin-gonic/gin"
+	"log"
+	_ "modernc.org/sqlite"
 )
 
 func main() {
+	//Setup
 	r := gin.Default()
-	r.Use(cors.Default())
-	r.GET("/projects", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "ping",
-		})
+	db, dbErr := sql.Open("sqlite", "db/portfolio.db")
+	if dbErr != nil {
+		log.Fatal("Cant open database: ", dbErr)
+	}
+	defer db.Close()
+
+	r.POST("/addProject", func(c *gin.Context) {
+		CreateProject(c, db)
+	})
+	r.POST("/addBlog", func(c *gin.Context) {
+
 	})
 
 	err := r.Run(":5731")

@@ -1,13 +1,28 @@
 package main
 
 import (
-	"net/http"
-
+	"database/sql"
 	"github.com/gin-gonic/gin"
+	"log"
+	_ "modernc.org/sqlite"
+	"net/http"
 )
 
 func main() {
+	//Setup
 	r := gin.Default()
+	db, dbErr := sql.Open("sqlite", "db/portfolio.db")
+	if dbErr != nil {
+		log.Fatal("Cant open database: ", dbErr)
+	}
+	defer db.Close()
+
+	//No route page
+	r.NoRoute(func(c *gin.Context) {
+		c.JSON(http.StatusNotFound, gin.H{
+			"code": "PAGE_NOT_FOUND", "msg": "PAGE_NOT_FOUND",
+		})
+	})
 
 	// Html/Static file LoadHTMLGlob
 	r.LoadHTMLGlob("templates/*")
@@ -24,8 +39,15 @@ func main() {
 		c.HTML(http.StatusOK, "blog.html", gin.H{})
 	})
 
-	err := r.Run(":1375")
-	if err != nil {
+	//Database routes
+	r.GET("/api/getProjects", func(c *gin.Context) {
+	})
+	r.GET("/api/getBlogs", func(c *gin.Context) {
+
+	})
+
+	runErr := r.Run(":1375")
+	if runErr != nil {
 		return
 	}
 }

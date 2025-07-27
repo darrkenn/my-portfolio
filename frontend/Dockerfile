@@ -4,8 +4,9 @@ LABEL authors="darragh"
 WORKDIR /app
 COPY . .
 
-#App build
+RUN go mod tidy
 RUN go build -o main .
-#WebUI port
+RUN mkdir db
+
 EXPOSE 1375
 CMD ["./main"]
