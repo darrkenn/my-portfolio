@@ -1,0 +1,9 @@
+services: 
+  frontend:
+    build: frontend/
+    ports:
+    - "1375:1375"
+  api:
+    build: api/
+    ports:
+      - "5731:5731"
