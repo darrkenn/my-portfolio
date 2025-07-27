@@ -2,12 +2,16 @@ services:
   frontend:
     build: frontend/
     volumes:
-      - /var/lib/portfolio/portfolio.db:/app/db/portfolio.db
+      - type: bind
+        source: /var/lib/portfolio/portfolio.db
+        target: /app/db/portfolio.db
     ports:
     - "1375:1375"
   api:
     build: api/
     volumes:
-      - /var/lib/portfolio/portfolio.db:/app/db/portfolio.db
+      - type: bind
+        source: /var/lib/portfolio/portfolio.db
+        target: /app/db/portfolio.db
     ports:
       - "5731:5731"

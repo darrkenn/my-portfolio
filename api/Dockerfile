@@ -3,6 +3,9 @@ LABEL authors="darragh"
 
 WORKDIR /app
 COPY . .
+
+ENV CGO_ENABLED=1
+RUN apk add build-base
 RUN go mod tidy
 RUN go build -o main .
 RUN mkdir db

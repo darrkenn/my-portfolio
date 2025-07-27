@@ -1,26 +1,26 @@
 package main
 
 import (
-	"database/sql"
 	"github.com/gin-gonic/gin"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 	"log"
-	_ "modernc.org/sqlite"
+	"my-portfolio-api/controllers"
 )
 
 func main() {
 	//Setup
 	r := gin.Default()
-	db, dbErr := sql.Open("sqlite", "db/portfolio.db")
+	db, dbErr := gorm.Open(sqlite.Open("db/portfolio.db"), &gorm.Config{})
 	if dbErr != nil {
 		log.Fatal("Cant open database: ", dbErr)
 	}
-	defer db.Close()
 
 	r.POST("/addProject", func(c *gin.Context) {
-		CreateProject(c, db)
+		controllers.CreateProject(c, db)
 	})
 	r.POST("/addBlog", func(c *gin.Context) {
-
+		controllers.CreateBlog(c, db)
 	})
 
 	err := r.Run(":5731")
