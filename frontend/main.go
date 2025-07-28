@@ -22,6 +22,9 @@ func main() {
 	}
 
 	dbLocation := os.Getenv("DATABASE_LOCATION")
+	cwLocation := os.Getenv("CW_LOCATION")
+	tLocation := os.Getenv("T_LOCATION")
+	sLocation := os.Getenv("S_LOCATION")
 
 	db, dbErr := gorm.Open(sqlite.Open(dbLocation), &gorm.Config{})
 	if dbErr != nil {
@@ -42,7 +45,7 @@ func main() {
 
 	// Html page routes
 	r.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "homepage.html", nil)
+		c.HTML(http.StatusOK, "about.html", nil)
 	})
 	r.GET("/projects", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "projects.html", nil)
@@ -71,6 +74,16 @@ func main() {
 	})
 	r.GET("/api/getBlogs", func(c *gin.Context) {
 		controllers.GetBlogs(c, db)
+	})
+	//About page
+	r.GET("/api/getCurrentlyWorking", func(c *gin.Context) {
+		controllers.GetCW(c, cwLocation)
+	})
+	r.GET("/api/technologies", func(c *gin.Context) {
+		controllers.GetTechnologies(c, tLocation)
+	})
+	r.GET("/api/lastListened", func(c *gin.Context) {
+		controllers.LastListened(c, sLocation)
 	})
 
 	runErr := r.Run(":1375")

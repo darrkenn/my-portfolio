@@ -2,7 +2,7 @@
     {{range .Projects}}
         <div class="bg-amber-12 jbm_normal">
 
-            <h1 class="text-3xl jbm_bold tracking-tighter text-nice-green">
+            <h1 class="text-3xl jbm_bold tracking-tighter ">
                 {{.Title}}
             </h1>
             <hr class="border-2">
@@ -20,7 +20,7 @@
 
             <div class="flex flex-row gap-2 jbm_bold pt-2">
                 {{ if .GitLink }}
-                    <a href="{{.GitLink}}" target="_blank" class="hover:text-nice-blue">
+                    <a href="{{.GitLink}}" target="_blank" class="text-nice-blue underline">
                         Github
                     </a>
                     {{if .WebLink}}
@@ -28,7 +28,7 @@
                     {{end}}
                 {{end}}
                 {{ if .WebLink }}
-                    <a href="{{.WebLink}}" target="_blank" class="hover:text-nice-blue">
+                    <a href="{{.WebLink}}" target="_blank" class="text-nice-blue underline">
                         Website
                     </a>
                     {{if .BlogId}}
@@ -37,7 +37,7 @@
                     {{end}}
                 {{end}}
                 {{if .BlogId}}
-                    <a href="/blogs/{{.BlogId}}" class="hover:text-nice-blue">
+                    <a href="/blogs/{{.BlogId}}" class="text-nice-blue underline">
                         Blog
                     </a>
                 {{end}}
