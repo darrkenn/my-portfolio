@@ -6,24 +6,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Projects</title>
+    <title>Homepage</title>
 </head>
 <body class="flex flex-col items-center h-screen bg-black text-white"
-      hx-get="/api/getProjects"
+      hx-get="/api/blog/{{.ID}}"
       hx-trigger="load"
-      hx-target="#projects"
-      hx-swap="innerHTML">
-
-
+      hx-target="#blogData"
+      hx-swap="innerHTML"
+>
 <div class="w-full px-3 flex justify-center"
      hx-get="/api/navbar"
      hx-trigger="load"
      hx-target="this"
      hx-swap="innerHTML">
 </div>
-
-<h1 class="text-4xl md:text-5xl p-4 jbm_bold">Projects</h1>
-<div id="projects" class="h-screen w-full md:w-1/3"></div>
-
+<div class="py-4"></div>
+<article id="blogData" class="bg-neutral-950 p-2 prose prose-invert prose-sm sm:prose-base lg:prose-md"></article>
 </body>
 </html>

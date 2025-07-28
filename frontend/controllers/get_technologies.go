@@ -13,6 +13,7 @@ type Technologies struct {
 }
 
 func GetTechnologies(c *gin.Context, tLocation string) {
+	fmt.Println("This is the tech location: ", tLocation)
 	file, fileErr := os.Open(tLocation)
 	if fileErr != nil {
 		fmt.Println("Cant open file: ", fileErr)

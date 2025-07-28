@@ -10,9 +10,12 @@ import (
 
 func GetBlogs(c *gin.Context, db *gorm.DB) {
 	var blogs []models.Blog
-	result := db.Find(&blogs)
+	result := db.Order("Blog_id desc").Find(&blogs)
+
 	if result.Error != nil {
 		log.Fatal("Cant get all blogs: ", result.Error)
 	}
-	c.JSON(http.StatusOK, blogs)
+	c.HTML(http.StatusOK, "blogs.gohtml", gin.H{
+		"blogs": blogs,
+	})
 }

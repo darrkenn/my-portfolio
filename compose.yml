@@ -5,6 +5,12 @@ services:
       - type: bind
         source: /var/lib/portfolio/portfolio.db
         target: /app/db/portfolio.db
+      - type: bind
+        source: /var/lib/portfolio/info/
+        target: /app/info/
+      - type: bind
+        source: /var/lib/portfolio/md
+        target: /app/md
     ports:
     - "1375:1375"
   api:

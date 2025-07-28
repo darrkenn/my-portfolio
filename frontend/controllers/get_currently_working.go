@@ -14,6 +14,7 @@ type CurrentlyWorking struct {
 }
 
 func GetCW(c *gin.Context, cwLocation string) {
+	fmt.Println("Current working location: ", cwLocation)
 	file, fileErr := os.Open(cwLocation)
 
 	if fileErr != nil {

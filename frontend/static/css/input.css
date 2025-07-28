@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @tailwind utilities;
+@plugin "@tailwindcss/typography";
 
 @theme {
     --color-nice-blue: #52C4DB;

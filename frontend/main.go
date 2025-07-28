@@ -25,6 +25,7 @@ func main() {
 	cwLocation := os.Getenv("CW_LOCATION")
 	tLocation := os.Getenv("T_LOCATION")
 	sLocation := os.Getenv("S_LOCATION")
+	mdLocation := os.Getenv("MD_LOCATION")
 
 	db, dbErr := gorm.Open(sqlite.Open(dbLocation), &gorm.Config{})
 	if dbErr != nil {
@@ -39,7 +40,7 @@ func main() {
 		})
 	})
 
-	// Html/Static file LoadHTMLGlob
+	// Html/Static files
 	r.LoadHTMLGlob("templates/*")
 	r.Static("/static", "./static")
 
@@ -55,8 +56,7 @@ func main() {
 	})
 	r.GET("/blogs/:blogId", func(c *gin.Context) {
 		blogId := c.Param("blogId")
-
-		c.HTML(http.StatusOK, "blog.html", gin.H{
+		c.HTML(http.StatusOK, "blog.gohtml", gin.H{
 			"ID": blogId,
 		})
 	})
@@ -74,6 +74,10 @@ func main() {
 	})
 	r.GET("/api/getBlogs", func(c *gin.Context) {
 		controllers.GetBlogs(c, db)
+	})
+	r.GET("/api/blog/:blogId", func(c *gin.Context) {
+		blogId := c.Param("blogId")
+		controllers.RenderBlog(c, blogId, mdLocation)
 	})
 	//About page
 	r.GET("/api/getCurrentlyWorking", func(c *gin.Context) {
