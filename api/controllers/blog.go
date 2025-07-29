@@ -21,3 +21,17 @@ func CreateBlog(c *gin.Context, db *gorm.DB) {
 	}
 	c.JSON(http.StatusOK, newBlog)
 }
+
+func DeleteBlog(c *gin.Context, id int, db *gorm.DB) {
+
+	result := db.Delete(models.Blog{}, id)
+	if result.Error != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": result.Error,
+		})
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"success": "Blog deleted",
+	})
+}

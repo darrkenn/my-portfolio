@@ -1,1 +1,8 @@
-<p>Last listened to <a href="{{.song.Link}}" class="text-nice-blue underline">{{.song.Title}}</a> by {{.song.Artist}}</p>
+<h1 class="jbm_bold text-2xl">Favourite song:</h1>
+<h2 class="jbm_bold text-lg">Title: <a href="{{.data.Link}}" class="text-nice-blue underline text-xl" target="_blank">{{.data.Title}}</a></h2>
+<h2 class="jbm_bold text-lg">Artists: </h2>
+<ul class="list-disc pl-12 jbm_normal">
+    {{range .data.Artists}}
+        <li>{{.}}</li>
+    {{end}}
+</ul>

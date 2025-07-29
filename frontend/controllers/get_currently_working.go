@@ -14,13 +14,17 @@ type CurrentlyWorking struct {
 }
 
 func GetCW(c *gin.Context, cwLocation string) {
-	fmt.Println("Current working location: ", cwLocation)
 	file, fileErr := os.Open(cwLocation)
-
 	if fileErr != nil {
+
 		fmt.Println("Cant open file: ", fileErr)
 	}
-	defer file.Close()
+	defer func(file *os.File) {
+		err := file.Close()
+		if err != nil {
+
+		}
+	}(file)
 
 	var cw CurrentlyWorking
 	decoder := json.NewDecoder(file)

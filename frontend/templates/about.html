@@ -17,18 +17,21 @@
      hx-swap="innerHTML">
 </div>
 
-<div class="h-screen w-full md:w-1/3 ">
-  <h1 class="text-4xl md:text-5xl pt-6 jbm_bold">Hi, I'm darrkenn</h1>
+<div class="h-screen w-full md:w-1/3">
+  <div>
+    <h1 class="text-4xl md:text-5xl pt-6 jbm_bold">Hi, I'm darrkenn</h1>
+    <p hx-get="/api/getCurrentlyWorking" hx-trigger="load" hx-target="this" hx-swap="innerHTML"></p>
+  </div>
 
   <div class="jbm_normal py-8">
     <p>
       I am a 17-year-old student from Ireland.
     </p>
     <p>
-      I'm interested in all things technology however I'm more interested in low-level/network programming.
+      I'm interested in all things technology
     </p>
     <p>
-      I specifically enjoy embedded systems and how they communicate with other devices.
+      I mainly enjoy low-level/network programming
     </p>
   </div>
 
@@ -36,12 +39,8 @@
 
   <div hx-get="/api/technologies" hx-trigger="load" hx-target="this" hx-swap="innerHTML" class="pb-8"></div>
 
-  <h1 class="jbm_bold text-2xl">Random Info:</h1>
-  <div class="">
-    <ul class="list-disc pl-12 jbm_normal">
-      <li hx-get="/api/getCurrentlyWorking" hx-trigger="load" hx-target="this" hx-swap="innerHTML"></li>
-      <li hx-get="/api/lastListened" hx-trigger="load" hx-target="this" hx-swap="innerHTML"></li>
-    </ul>
+  <div hx-get="/api/favouriteSong" hx-trigger="load" hx-target="this" hx-swap="innerHTML">
+
   </div>
 </div>
 

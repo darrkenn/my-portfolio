@@ -21,3 +21,17 @@ func CreateProject(c *gin.Context, db *gorm.DB) {
 	}
 	c.JSON(http.StatusOK, newProject)
 }
+
+func DeleteProject(c *gin.Context, id int, db *gorm.DB) {
+
+	result := db.Delete(models.Project{}, id)
+	if result.Error != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": result.Error,
+		})
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"success": "Project deleted",
+	})
+}

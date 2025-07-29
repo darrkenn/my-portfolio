@@ -11,6 +11,9 @@ services:
       - type: bind
         source: /var/lib/portfolio/md
         target: /app/md
+      - type: bind
+        source: /var/lib/portfolio/message
+        target: /app/message
     ports:
     - "1375:1375"
   api:

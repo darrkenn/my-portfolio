@@ -6,6 +6,8 @@ import (
 	"gorm.io/gorm"
 	"log"
 	"my-portfolio-api/controllers"
+	"net/http"
+	"strconv"
 )
 
 func main() {
@@ -21,6 +23,26 @@ func main() {
 	})
 	r.POST("/addBlog", func(c *gin.Context) {
 		controllers.CreateBlog(c, db)
+	})
+	r.GET("/deleteBlog/:id", func(c *gin.Context) {
+		stringId := c.Param("id")
+		id, idErr := strconv.Atoi(stringId)
+		if idErr != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": idErr,
+			})
+		}
+		controllers.DeleteBlog(c, id, db)
+	})
+	r.GET("/deleteProject/:id", func(c *gin.Context) {
+		stringId := c.Param("id")
+		id, idErr := strconv.Atoi(stringId)
+		if idErr != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": idErr,
+			})
+		}
+		controllers.DeleteProject(c, id, db)
 	})
 
 	err := r.Run(":5731")

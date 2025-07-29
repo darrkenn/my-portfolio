@@ -9,28 +9,29 @@ import (
 )
 
 type Song struct {
-	Title  string `json:"song"`
-	Link   string `json:"link"`
-	Artist string `json:"artist"`
+	Title   string   `json:"title"`
+	Link    string   `json:"link"`
+	Artists []string `json:"artists"`
 }
 
-func LastListened(c *gin.Context, sLocation string) {
+func FavouriteSong(c *gin.Context, sLocation string) {
 	file, fileErr := os.Open(sLocation)
 	if fileErr != nil {
 		fmt.Println("Cant open file: ", fileErr)
 	}
-	defer file.Close()
+	defer func(file *os.File) {
+		err := file.Close()
+		if err != nil {
+
+		}
+	}(file)
 
 	var song Song
 	decoder := json.NewDecoder(file)
 	if err := decoder.Decode(&song); err != nil {
-		fmt.Println("Cant decode file: ", err)
+		fmt.Println("Cant open file: ", err)
 	}
-
-	fmt.Println("THIS IS WORKING: ", song)
-
 	c.HTML(http.StatusOK, "song.gohtml", gin.H{
-		"song": song,
+		"data": song,
 	})
-
 }

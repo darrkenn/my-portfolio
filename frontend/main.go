@@ -24,8 +24,9 @@ func main() {
 	dbLocation := os.Getenv("DATABASE_LOCATION")
 	cwLocation := os.Getenv("CW_LOCATION")
 	tLocation := os.Getenv("T_LOCATION")
-	sLocation := os.Getenv("S_LOCATION")
 	mdLocation := os.Getenv("MD_LOCATION")
+	mLocation := os.Getenv("M_LOCATION")
+	sLocation := os.Getenv("S_LOCATION")
 
 	db, dbErr := gorm.Open(sqlite.Open(dbLocation), &gorm.Config{})
 	if dbErr != nil {
@@ -86,8 +87,11 @@ func main() {
 	r.GET("/api/technologies", func(c *gin.Context) {
 		controllers.GetTechnologies(c, tLocation)
 	})
-	r.GET("/api/lastListened", func(c *gin.Context) {
-		controllers.LastListened(c, sLocation)
+	r.GET("/api/favouriteSong", func(c *gin.Context) {
+		controllers.FavouriteSong(c, sLocation)
+	})
+	r.POST("/api/message", func(c *gin.Context) {
+		controllers.NewMessage(c, mLocation)
 	})
 
 	runErr := r.Run(":1375")
