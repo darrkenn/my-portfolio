@@ -1,0 +1,8 @@
+ {{range .blogs}}
+    <li class="bg-neutral-900 py-1.5 px-1 hover:text-nice-blue">
+        <a class="flex-row flex w-full " href="/blogs/{{.BlogId}}">
+            <h1 class="pl-0.5 text-left w-1/2 ">{{.Title}}</h1>
+            <h1 class="pr-0.5 text-right w-1/2">{{.Date}}</h1>
+        </a>
+    </li>
+ {{end}}
