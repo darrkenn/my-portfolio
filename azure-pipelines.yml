@@ -4,8 +4,21 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- checkout: self
-- script: |
-    ls $(Build.SourcesDirectory)
-  displayName: 'List Sources Directory'
+stages:
+- stage: Build
+  jobs:
+  - job: BuildMyPortfolio
+    steps:
+    - checkout: self
+    - script: |
+        ls $(Build.SourcesDirectory)
+      displayName: 'List Sources Directory'
+
+- stage:
+  jobs:
+  - job: RunTest
+    steps:
+      - checkout: self
+      - script: |
+          ls $(Build.SourcesDirectory)
+        displayName: 'List Sources Directory'
