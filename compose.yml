@@ -1,4 +1,4 @@
-services: 
+services:
   frontend:
     build: frontend/
     volumes:
@@ -15,7 +15,8 @@ services:
         source: /var/lib/portfolio/message
         target: /app/message
     ports:
-    - "1375:1375"
+      - "1375:1375"
+    restart: unless-stopped
   api:
     build: api/
     volumes:
@@ -24,3 +25,4 @@ services:
         target: /app/db/portfolio.db
     ports:
       - "5731:5731"
+    restart: unless-stopped
