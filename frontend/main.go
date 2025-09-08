@@ -2,19 +2,20 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"my-portfolio/controllers"
+	"net/http"
+	"os"
+
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	"log"
 	_ "modernc.org/sqlite"
-	"my-portfolio/controllers"
-	"net/http"
-	"os"
 )
 
 func main() {
-	//Setup
+	// Setup
 	r := gin.Default()
 	envErr := godotenv.Load()
 	if envErr != nil {
@@ -33,7 +34,7 @@ func main() {
 	}
 	fmt.Println("This is the db", db)
 
-	//No route page
+	// No route page
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{
 			"code": "PAGE_NOT_FOUND", "msg": "PAGE_NOT_FOUND",
@@ -64,11 +65,11 @@ func main() {
 		c.HTML(http.StatusOK, "contact.html", nil)
 	})
 
-	//Reusable HTML
+	// Reusable HTML
 	r.GET("/api/navbar", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "navbar.html", nil)
 	})
-	//Database routes
+	// Database routes
 	r.GET("/api/getProjects", func(c *gin.Context) {
 		controllers.GetProjects(c, db)
 	})
@@ -79,7 +80,7 @@ func main() {
 		blogId := c.Param("blogId")
 		controllers.RenderBlog(c, blogId, mdLocation)
 	})
-	//About page
+	// About page
 	r.GET("/api/getCurrentlyWorking", func(c *gin.Context) {
 		controllers.GetCW(c, cwLocation)
 	})
