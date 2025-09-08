@@ -5,7 +5,7 @@ LABEL authors="darragh"
 WORKDIR /app
 COPY . .
 ENV CGO_ENABLED=1
-RUN apk add --no-cache build-base
+RUN apk update && apk add --no-cache build-base
 
 RUN mkdir db
 RUN mkdir md
