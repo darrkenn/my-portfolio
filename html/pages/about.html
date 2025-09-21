@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="static/css/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>About</title>
+  </head>
+
+  <body class="flex flex-col items-center h-screen bg-black text-white">
+    <div class="w-full md:w-1/3 jbm_bold pt-2">
+      <div class="flex flex-row sm:text-2xl">
+        <div class="w-2/3">
+          <a href="/" class="hover:text-nice-blue"> Home </a>
+          <a href="/projects" class="hover:text-nice-blue"> Projects </a>
+          <a href="/blogs" class="hover:text-nice-blue"> Blogs </a>
+        </div>
+        <div class="w-1/3 flex justify-end items-center">
+          <a href="/notes" class="text-right hover:text-nice-blue"> Notes </a>
+        </div>
+      </div>
+      <hr class="" />
+    </div>
+
+    <div class="h-screen w-full md:w-1/3">
+      <div>
+        <h1 class="text-4xl md:text-5xl pt-6 jbm_bold">Hi, I'm Darragh</h1>
+        <p
+          hx-get="/api/getCurrentlyWorking"
+          hx-trigger="load"
+          hx-target="this"
+          hx-swap="innerHTML"
+        ></p>
+      </div>
+
+      <div class="jbm_normal py-8">
+        <p>I am a 17 year old student from Ireland</p>
+        <p>I like minimal,interesting and secure technology.</p>
+      </div>
+
+      <h1 class="jbm_bold text-2xl">Technologies I use:</h1>
+
+      <div class="pb-8">
+        <ul class="list-disc pl-12 jbm_normal">
+          <li>Rust</li>
+          <li>Elixir</li>
+          <li>Go</li>
+        </ul>
+      </div>
+
+      <h1 class="jbm_bold text-2xl">Links:</h1>
+      <div class="pb-8">
+        <ul class="list-disc pl-12 jbm_normal">
+          <li>
+            <a href="https://github.com/darrkenn" class="hover:text-nice-blue"
+              >Github</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/darragh-kennedy-6b6509326/"
+              class="hover:text-nice-blue"
+              >LinkedIn</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

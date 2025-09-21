@@ -1,0 +1,38 @@
+<div class="space-y-10 px-4 sm:p-0">
+  {% for project in projects %}
+  <div class="bg-amber-12 jbm_normal">
+    <h1 class="text-3xl jbm_bold tracking-tighter">{{project.title}}</h1>
+    <hr class="border-2" />
+    <p class="m-auto">{{ project.info }}</p>
+    <div class="flex flex-row gap-2 jbm_bold pt-2">
+      {% if project.github %}
+      <a
+        href="{{project.github}}"
+        target="_blank"
+        class="text-nice-blue underline"
+      >
+        Github
+      </a>
+      {% if project.website %}
+      <h1>|</h1>
+      {% endif %} {% endif %} {% if project.website %}
+      <a
+        href="{{project.website}}"
+        target="_blank"
+        class="text-nice-blue underline"
+      >
+        Website
+      </a>
+      {% if project.blog %}
+
+      <h1>|</h1>
+      {% endif %} {% endif %} {% if project.blog %}
+      <a href="/blogs/project.blog" class="text-nice-blue underline"> Blog </a>
+      {% endif %}
+    </div>
+  </div>
+  {% else %}
+  <p class="text-5xl">No projects found</p>
+
+  {% endfor%}
+</div>
