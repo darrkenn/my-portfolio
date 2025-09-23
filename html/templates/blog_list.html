@@ -1,0 +1,13 @@
+<ul class="w-full md:w-1/3 jbm_bold space-y-4 px-3">
+  {% for blog in blogs %}
+  <li class="bg-neutral-900 py-1.5 px-1 hover:text-nice-blue">
+    <a class="flex-row flex w-full" href="/blogs/{{blog.html}}">
+      <h1 class="pl-0.5 text-left w-1/2">{{blog.title}}</h1>
+      <h1 class="pr-0.5 text-right w-1/2">{{blog.date}}</h1>
+    </a>
+  </li>
+  {% else %}
+  <p class="text-5xl">No blogs found</p>
+
+  {% endfor%}
+</ul>
