@@ -11,7 +11,7 @@ use std::{fs, sync::Arc};
 use tera::Tera;
 use tower_http::services::{ServeDir, ServeFile};
 
-use crate::endpoint_functions::{load_blogs, load_projects};
+use crate::endpoint_functions::{load_blogs, load_cw, load_projects};
 
 #[derive(Clone)]
 struct TeraState {
@@ -80,6 +80,17 @@ async fn get_blog(Path(title): Path<String>) -> String {
 
     markdown_to_html(&md, &ComrakOptions::default())
 }
+async fn get_cw(State(state): State<TeraState>) -> impl IntoResponse {
+    let cw = load_cw().await;
+
+    let mut context = tera::Context::new();
+    context.insert("cw", &cw);
+    let html = state
+        .tera
+        .render("currently_working.html", &context)
+        .unwrap();
+    Html(html)
+}
 
 #[tokio::main]
 async fn main() {
@@ -100,12 +111,13 @@ async fn main() {
         .route("/api/list_projects", get(list_projects))
         .route("/api/list_blogs", get(list_blogs))
         .route("/api/blog/{title}", get(get_blog))
+        .route("/api/cw", get(get_cw))
         //Services
         .nest_service("/static", ServeDir::new("static"))
         .nest_service("/favicon.ico", ServeFile::new("static/favicon.ico"))
         .with_state(tera_state);
     let listener = tokio::net::TcpListener::bind("0.0.0.0:8080").await.unwrap();
 
-    println!("Started server!");
+    println!("Started server at http://localhost:8080");
     axum::serve(listener, app).await.unwrap();
 }

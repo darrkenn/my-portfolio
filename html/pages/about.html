@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="static/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.7/dist/htmx.min.js"></script>
+    <link rel="stylesheet" href="static/css/build.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -27,7 +28,7 @@
       <div>
         <h1 class="text-4xl md:text-5xl pt-6 jbm_bold">Hi, I'm Darragh</h1>
         <p
-          hx-get="/api/getCurrentlyWorking"
+          hx-get="/api/cw"
           hx-trigger="load"
           hx-target="this"
           hx-swap="innerHTML"
