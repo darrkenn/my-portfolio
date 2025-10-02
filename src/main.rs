@@ -58,10 +58,10 @@ async fn contact() -> impl IntoResponse {
 
 //Endpoints
 async fn list_projects(State(state): State<TeraState>) -> impl IntoResponse {
-    let projects = load_projects().await;
+    let project_wrapper = load_projects().await;
 
     let mut context = tera::Context::new();
-    context.insert("projects", &projects);
+    context.insert("projects", &project_wrapper.projects);
 
     let html = state.tera.render("project_list.html", &context).unwrap();
     Html(html)
