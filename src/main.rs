@@ -114,6 +114,7 @@ async fn main() {
         .route("/api/cw", get(get_cw))
         //Services
         .nest_service("/static", ServeDir::new("static"))
+        .nest_service("/images", ServeDir::new("images"))
         .nest_service("/favicon.ico", ServeFile::new("static/favicon.ico"))
         .with_state(tera_state);
     let listener = tokio::net::TcpListener::bind("0.0.0.0:8080").await.unwrap();
